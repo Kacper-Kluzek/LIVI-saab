@@ -12,3 +12,4 @@ export function runNumberFromTitle(title?: string): string {
   const m = (title || '').match(/#(\d+)/)
   return m ? m[1] : ''
 }
+
