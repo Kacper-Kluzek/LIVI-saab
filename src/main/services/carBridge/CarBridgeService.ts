@@ -219,8 +219,11 @@ export class CarBridgeService {
     this.stream.write(`${field} ${ascii}\n`)
   }
 
-  // Match by USB VID + CDC data interface via sysfs
+    // Match by hardware UART (/dev/ttyAMA0) or USB VID + CDC data interface via sysfs
   private findPortLinux(): string | null {
+    if (fs.existsSync('/dev/ttyAMA0')) {
+      return '/dev/ttyAMA0'
+    }
     let ttys: string[] = []
     try {
       ttys = fs.readdirSync('/sys/class/tty').filter((name) => name.startsWith('ttyACM'))
